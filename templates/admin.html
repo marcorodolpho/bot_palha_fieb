@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>Administrador</title>
+</head>
+<body>
+    <h1>Configurar Quantidade de Produtos</h1>
+    <form method="POST">
+        <label for="palha">Palha Italiana (R$7):</label>
+        <input type="number" id="palha" name="palha" value="{{ produtos.palha_italiana }}"><br>
+        <label for="bolinha">Bolinha Italiana (R$4):</label>
+        <input type="number" id="bolinha" name="bolinha" value="{{ produtos.bolinha_italiana }}"><br>
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a href="verpedidos">Ver Pedidos</a>
+</body>
+</html>

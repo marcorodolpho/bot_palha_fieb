@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Pedidos</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Pedidos Recebidos</h1>
+        <ul>
+            {% for pedido in pedidos %}
+                <li>
+                    {{ pedido['nome'] }} pediu:
+                    {% if pedido['produto1'] %} {{ pedido['quantidade1'] }}x {{ pedido['produto1'] }}{% endif %}
+                    {% if pedido['produto2'] %} e {{ pedido['quantidade2'] }}x {{ pedido['produto2'] }}{% endif %}
+                    para {{ pedido['horario'] }}.
+                    Pagamento: {{ pedido['pagamento'] }}. 
+                    <strong>Total: R$ {{ "%.2f"|format(pedido['preco_total']) }}</strong>
+                    <br>Status: {{ pedido['status'] }}
+                    <form method="POST" action="{{ url_for('ver_pedidos') }}">
+                        <input type="hidden" name="pedido_id" value="{{ pedido['key'] }}">
+                        <select name="status">
+                            <option value="Em andamento" {% if pedido['status'] == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+                            <option value="Entregue" {% if pedido['status'] == 'Entregue' %}selected{% endif %}>Entregue</option>
+                        </select>
+                        <button type="submit">Atualizar Status</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <h2>Total Recebido: R$ {{ "%.2f"|format(total) }}</h2>
+    </div>
+</body>
+</html>
